@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.17.0](https://github.com/ops4life/terraform-repo-template/compare/v1.16.0...v1.17.0) (2026-01-17)
+
+
+### Features
+
+* Change license update to use repo owner name ([c4e879c](https://github.com/ops4life/terraform-repo-template/commit/c4e879c92a2efc6f34dd6b8c577886b94f5d015d))
+
 # [1.16.0](https://github.com/duyluann/terraform-repo-template/compare/v1.15.0...v1.16.0) (2026-01-13)
 
 
