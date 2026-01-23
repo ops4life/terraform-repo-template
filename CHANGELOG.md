@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.18.0](https://github.com/ops4life/terraform-repo-template/compare/v1.17.0...v1.18.0) (2026-01-23)
+
+
+### Features
+
+* Update template-repo-sync.yaml ([694adc0](https://github.com/ops4life/terraform-repo-template/commit/694adc0dfc134eca8fc320239f1b3096123ecc08))
+
 # [1.17.0](https://github.com/ops4life/terraform-repo-template/compare/v1.16.0...v1.17.0) (2026-01-17)
 
 
