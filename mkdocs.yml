@@ -1,8 +1,8 @@
 site_name: Terraform Repo Template
 site_description: A structured template for Terraform projects with CI/CD integration, security scanning, and best practices enforcement.
-site_url: ""
-repo_url: ""
-repo_name: ""
+site_url: "https://ops4life.github.io/terraform-repo-template/"
+repo_url: "https://github.com/ops4life/terraform-repo-template"
+repo_name: "ops4life/terraform-repo-template"
 
 theme:
   name: material
