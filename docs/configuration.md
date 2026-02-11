@@ -146,4 +146,4 @@ MkDocs site configuration with Material theme.
 - **Features**: Navigation tabs, search suggestions, code copy
 - **Plugins**: Search, minify, git-revision-date-localized
 
-The `site_url`, `repo_url`, and `repo_name` fields use placeholder values (`username/github-repo-template`) that are automatically replaced with the actual repository URLs by the `docs-deploy` workflow on first run.
+The `site_url`, `repo_url`, and `repo_name` fields use placeholder values (`ops4life/terraform-repo-template`) that are automatically replaced with the actual repository URLs by the `docs-deploy` workflow on first run.

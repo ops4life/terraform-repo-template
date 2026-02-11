@@ -24,9 +24,9 @@ The release process is configured in `.releaserc.json`:
 
 ## Release History
 
-The full changelog is maintained in the repository's [CHANGELOG.md](https://github.com/username/github-repo-template/blob/main/CHANGELOG.md) file. It is automatically updated with each release.
+The full changelog is maintained in the repository's [CHANGELOG.md](https://github.com/ops4life/terraform-repo-template/blob/main/CHANGELOG.md) file. It is automatically updated with each release.
 
-See the [GitHub Releases](https://github.com/username/github-repo-template/releases) page for downloadable release artifacts and notes.
+See the [GitHub Releases](https://github.com/ops4life/terraform-repo-template/releases) page for downloadable release artifacts and notes.
 
 !!! note
     The links above will be automatically updated with your repository URL by the docs-deploy workflow on first run.
