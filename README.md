@@ -1,6 +1,6 @@
 # 🚧 Terraform Project Template
 
-[![Documentation](https://img.shields.io/badge/docs-mkdocs-blue)](https://ops4life.github.io/terraform-repo-template/)
+[![Documentation](https://img.shields.io/badge/docs-mkdocs-blue)](https://username.github.io/github-repo-template/)
 
 This repository provides a structured template for Terraform projects, enabling consistent and scalable infrastructure deployments. The template has best practices, CI/CD integration, and environment-specific configurations to streamline infrastructure management.
 
