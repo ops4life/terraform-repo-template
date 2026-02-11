@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.19.0](https://github.com/ops4life/terraform-repo-template/compare/v1.18.0...v1.19.0) (2026-02-11)
+
+
+### Bug Fixes
+
+* **gitleaks:** add GITLEAKS_LICENSE environment variable for GitLeaks action ([c990b3a](https://github.com/ops4life/terraform-repo-template/commit/c990b3aab701642556e07b19aecd9c5434c614cd))
+
+
+### Features
+
+* **docs:** add MkDocs documentation site with GitHub Pages deployment ([#6](https://github.com/ops4life/terraform-repo-template/issues/6)) ([ba40171](https://github.com/ops4life/terraform-repo-template/commit/ba4017144aff3e2bb6872933c7971cdc315009ca))
+
 # [1.18.0](https://github.com/ops4life/terraform-repo-template/compare/v1.17.0...v1.18.0) (2026-01-23)
 
 
