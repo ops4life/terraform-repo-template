@@ -19,7 +19,7 @@ Annotated directory tree with descriptions of every file and directory.
 │   └── workflows/                      # GitHub Actions workflows
 │       ├── automerge.yaml              # Auto-merge bot PRs
 │       ├── checkov.yaml                # Standalone Checkov security scan
-│       ├── docs.yaml                   # Documentation build and deploy
+│       ├── docs-deploy.yaml             # Documentation build and deploy
 │       ├── gitleaks.yaml               # Secret detection scan
 │       ├── infracost.yaml              # Cost estimation for PRs
 │       ├── lint-pr.yaml                # PR title linting

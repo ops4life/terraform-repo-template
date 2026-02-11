@@ -1,0 +1,104 @@
+name: Deploy Documentation
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - 'requirements.txt'
+      - '.github/workflows/docs-deploy.yaml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build Documentation
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0  # Fetch all history for git-revision-date plugin
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Configure repository URLs
+        run: |
+          # Extract repository name from GITHUB_REPOSITORY (owner/repo)
+          REPO_NAME="${GITHUB_REPOSITORY}"
+          REPO_OWNER="${GITHUB_REPOSITORY_OWNER}"
+
+          # Update mkdocs.yml with actual repository information
+          sed -i "s|site_url: https://username.github.io/github-repo-template/|site_url: https://${REPO_OWNER}.github.io/${GITHUB_REPOSITORY#*/}/|g" mkdocs.yml
+          sed -i "s|repo_name: username/github-repo-template|repo_name: ${REPO_NAME}|g" mkdocs.yml
+          sed -i "s|repo_url: https://github.com/username/github-repo-template|repo_url: https://github.com/${REPO_NAME}|g" mkdocs.yml
+          sed -i "s|edit_uri: edit/main/docs/|edit_uri: edit/main/docs/|g" mkdocs.yml
+
+          # Update social links
+          sed -i "s|link: https://github.com/username/github-repo-template|link: https://github.com/${REPO_NAME}|g" mkdocs.yml
+
+          # Update documentation files with actual repository information
+          find docs -type f -name "*.md" -exec sed -i "s|https://github.com/username/github-repo-template|https://github.com/${REPO_NAME}|g" {} +
+          find docs -type f -name "*.md" -exec sed -i "s|username.github.io/github-repo-template|${REPO_OWNER}.github.io/${GITHUB_REPOSITORY#*/}|g" {} +
+          find docs -type f -name "*.md" -exec sed -i "s|username/github-repo-template|${REPO_NAME}|g" {} +
+
+          # Update README.md with actual repository information
+          sed -i "s|https://username.github.io/github-repo-template/|https://${REPO_OWNER}.github.io/${GITHUB_REPOSITORY#*/}/|g" README.md
+          sed -i "s|username.github.io/github-repo-template|${REPO_OWNER}.github.io/${GITHUB_REPOSITORY#*/}|g" README.md
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+
+      - name: Commit URL changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+          # Check if there are any changes to commit
+          if ! git diff --quiet; then
+            git add mkdocs.yml README.md docs/
+            git commit -m "chore(docs): auto-update repository URLs [skip ci]"
+            git push
+          else
+            echo "No URL changes to commit"
+          fi
+
+      - name: Build documentation
+        run: |
+          mkdocs build --strict
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site/
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

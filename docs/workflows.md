@@ -14,7 +14,7 @@ This repository includes 14 GitHub Actions workflows for quality assurance, secu
 | [Infracost](#infracost) | Pull requests | Cost estimation |
 | [Terraform CI/CD](#terraform-cicd) | Manual dispatch | Plan, apply, and destroy |
 | [Release](#release) | Push to main, manual | Semantic versioning and releases |
-| [Documentation](#documentation) | Push to main, PRs | Build and deploy docs site |
+| [Deploy Documentation](#deploy-documentation) | Push to main, manual | Build and deploy docs site |
 | [Pre-commit Auto-update](#pre-commit-auto-update) | Weekly, push/PR to main | Update pre-commit hooks |
 | [Automerge](#automerge) | Pull requests | Auto-merge bot PRs |
 | [Stale](#stale) | Daily schedule | Close stale issues/PRs |
@@ -133,20 +133,19 @@ Runs [Semantic Release](https://semantic-release.gitbook.io/) to automatically:
 - Create GitHub release with notes
 - Tag the release commit
 
-### Documentation
+### Deploy Documentation
 
-**File**: `.github/workflows/docs.yaml`
-**Trigger**: Push to main (docs changes), pull requests (docs changes)
+**File**: `.github/workflows/docs-deploy.yaml`
+**Trigger**: Push to main (docs changes), manual dispatch
 
 Builds and deploys the MkDocs documentation site to GitHub Pages.
 
 **Jobs**:
 
-- **configure**: Detects repository URL and updates `mkdocs.yml` placeholders on first run
-- **validate**: Runs `mkdocs build --strict` on PRs to catch errors
-- **deploy**: Deploys to GitHub Pages via `mkdocs gh-deploy --force`
+- **build**: Configures repository URLs from template placeholders, builds the documentation with `mkdocs build --strict`, and uploads the site artifact
+- **deploy**: Deploys to GitHub Pages via `actions/deploy-pages@v4` with the `github-pages` environment
 
-Only triggers on changes to `docs/**`, `mkdocs.yml`, or `requirements.txt`.
+Only triggers on changes to `docs/**`, `mkdocs.yml`, `requirements.txt`, or the workflow file itself.
 
 ### Pre-commit Auto-update
 
