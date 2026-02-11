@@ -1,0 +1,72 @@
+site_name: Terraform Repo Template
+site_description: A structured template for Terraform projects with CI/CD integration, security scanning, and best practices enforcement.
+site_url: ""
+repo_url: ""
+repo_name: ""
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: deep purple
+      accent: deep purple
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: deep purple
+      accent: deep purple
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.snippets
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+
+plugins:
+  - search
+  - minify:
+      minify_html: true
+  - git-revision-date-localized:
+      enable_creation_date: true
+      fallback_to_build_date: true
+      strict: false
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Quick Start: quick-start.md
+      - Usage Guide: usage.md
+      - Repository Structure: repository-structure.md
+  - Development:
+      - Contributing: contributing.md
+      - Commit Conventions: commit-conventions.md
+  - Reference:
+      - Configuration: configuration.md
+      - Security: security.md
+      - CI/CD Workflows: workflows.md
+      - Changelog: changelog.md

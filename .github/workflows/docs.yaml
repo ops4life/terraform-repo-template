@@ -1,0 +1,104 @@
+name: Documentation
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "docs/**"
+      - "mkdocs.yml"
+      - "requirements.txt"
+  pull_request:
+    paths:
+      - "docs/**"
+      - "mkdocs.yml"
+      - "requirements.txt"
+
+permissions:
+  contents: write
+
+jobs:
+  configure:
+    name: Configure repository URLs
+    runs-on: ubuntu-24.04
+    if: github.event_name == 'push'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Check if configuration needed
+        id: check
+        run: |
+          SITE_URL=$(grep '^site_url:' mkdocs.yml | sed 's/site_url: *//' | tr -d '"')
+          if [ -z "$SITE_URL" ]; then
+            echo "needs_config=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "needs_config=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Configure mkdocs.yml with repository URLs
+        if: steps.check.outputs.needs_config == 'true'
+        run: |
+          REPO_OWNER="${GITHUB_REPOSITORY_OWNER}"
+          REPO_NAME="${GITHUB_REPOSITORY#*/}"
+          REPO_URL="https://github.com/${GITHUB_REPOSITORY}"
+          SITE_URL="https://${REPO_OWNER}.github.io/${REPO_NAME}/"
+
+          sed -i "s|^site_url: \"\"$|site_url: \"${SITE_URL}\"|" mkdocs.yml
+          sed -i "s|^repo_url: \"\"$|repo_url: \"${REPO_URL}\"|" mkdocs.yml
+          sed -i "s|^repo_name: \"\"$|repo_name: \"${GITHUB_REPOSITORY}\"|" mkdocs.yml
+
+      - name: Commit configuration changes
+        if: steps.check.outputs.needs_config == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add mkdocs.yml
+          git diff --staged --quiet || git commit -m "chore(docs): configure documentation site URLs [skip ci]"
+          git push
+
+  validate:
+    name: Validate documentation
+    runs-on: ubuntu-24.04
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Build documentation (strict mode)
+        run: mkdocs build --strict
+
+  deploy:
+    name: Deploy documentation
+    runs-on: ubuntu-24.04
+    if: github.event_name == 'push'
+    needs: configure
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Deploy to GitHub Pages
+        run: mkdocs gh-deploy --force
