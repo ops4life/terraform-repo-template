@@ -13,3 +13,6 @@ LICENSE
 CODEOWNERS
 CHANGELOG.md
 CLAUDE.md
+docs/*
+mkdocs.yml
+requirements.txt

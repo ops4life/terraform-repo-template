@@ -1,0 +1,9 @@
+/* Wider content area for documentation */
+.md-grid {
+  max-width: 1440px;
+}
+
+/* Badge styling */
+.md-typeset .md-badge {
+  font-size: 0.75rem;
+}

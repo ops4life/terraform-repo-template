@@ -62,6 +62,17 @@ repos:
         name: Gitleaks secret detection
         description: Detect hardcoded secrets
 
+  # MkDocs documentation validation
+  - repo: local
+    hooks:
+      - id: mkdocs-build
+        name: MkDocs build validation
+        description: Validate MkDocs documentation builds successfully
+        entry: bash -c 'pip install -q -r requirements.txt && mkdocs build --strict'
+        language: system
+        files: '(docs/|mkdocs\.yml|requirements\.txt)'
+        pass_filenames: false
+
 # Best practices:
 # 1. Keep hooks fast to avoid developer friction
 # 2. Auto-fix where possible (fmt, trailing-whitespace)
