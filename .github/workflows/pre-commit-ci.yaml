@@ -16,7 +16,7 @@ jobs:
           python-version: "3.10"
 
       - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v3
+        uses: hashicorp/setup-terraform@v4
 
       - name: Setup TFLint
         uses: terraform-linters/setup-tflint@v6
