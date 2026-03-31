@@ -12,7 +12,7 @@ jobs:
       pull-requests: write
     steps:
       - name: Setup Infracost
-        uses: infracost/actions/setup@v3
+        uses: infracost/actions/setup@v4
         # See https://github.com/infracost/actions/tree/master/setup for other inputs
         with:
           api-key: ${{ secrets.INFRACOST_API_KEY }}
