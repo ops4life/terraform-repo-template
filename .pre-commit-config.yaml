@@ -22,7 +22,7 @@ repos:
 
   # Terraform-specific hooks
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.106.0
+    rev: v1.108.0
     hooks:
       - id: terraform_fmt
         name: Terraform format
