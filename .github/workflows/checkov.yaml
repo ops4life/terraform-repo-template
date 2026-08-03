@@ -18,7 +18,7 @@ jobs:
 
       - name: Run Checkov action
         id: checkov
-        uses: bridgecrewio/checkov-action@v12
+        uses: bridgecrewio/checkov-action@v12.3114.0
         with:
           config_file: .checkov.yml
           output_format: cli,sarif
