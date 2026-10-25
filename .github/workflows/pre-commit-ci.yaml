@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          token: ${{ secrets.WORKFLOW_TOKEN }}
+          token: ${{ secrets.WORKFLOW_TOKEN || github.token }}
 
       - name: Set up Python
         uses: actions/setup-python@v7

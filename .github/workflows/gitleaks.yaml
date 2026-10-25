@@ -6,11 +6,26 @@ jobs:
   scan:
     name: gitleaks
     runs-on: ubuntu-24.04
+    env:
+      GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
     steps:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - uses: gitleaks/gitleaks-action@v3
+        if: env.GITLEAKS_LICENSE != ''
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
+
+      # Dependabot-triggered runs cannot read Actions secrets, so the licensed action fails there; use the free CLI
+      - name: Run Gitleaks (no license)
+        if: env.GITLEAKS_LICENSE == ''
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          range=""
+          if [ "$EVENT_NAME" = "pull_request" ]; then range="--log-opts=$BASE_SHA..$HEAD_SHA"; fi
+          docker run --rm -v "$PWD:/repo" zricethezav/gitleaks:v8.18.4 detect --source /repo --verbose --redact $range
