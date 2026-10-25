@@ -10,6 +10,8 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
+    # Dependabot-triggered runs cannot read Actions secrets; skip instead of failing without a key
+    if: github.actor != 'dependabot[bot]'
     steps:
       - name: Setup Infracost
         uses: infracost/actions/setup@v5
