@@ -9,6 +9,7 @@ data "aws_region" "current" {}
 
 # Get all available availability zones
 data "aws_availability_zones" "available" {
+  #checkov:skip=CKV_AWS_394:Example code; AZ list intentionally not pinned
   state = "available"
 }
 
