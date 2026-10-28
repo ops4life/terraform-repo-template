@@ -1,0 +1,2 @@
+# Auto-requests a review on every PR (Dependabot ignores the removed `reviewers:` key; CODEOWNERS is the supported route)
+* @duyluann
