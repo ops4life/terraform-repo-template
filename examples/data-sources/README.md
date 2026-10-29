@@ -64,7 +64,7 @@ No requirements.
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="provider_aws"></a> [aws](#provider\_aws) | 6.21.0 |
 
 ## Modules
@@ -74,7 +74,7 @@ No modules.
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_ami.amazon_linux_2](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
 | [aws_ami.ubuntu](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
 | [aws_availability_zones.available](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones) | data source |
@@ -90,7 +90,7 @@ No inputs.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_account_id"></a> [account\_id](#output\_account\_id) | Current AWS account ID |
 | <a name="output_amazon_linux_2_ami"></a> [amazon\_linux\_2\_ami](#output\_amazon\_linux\_2\_ami) | Latest Amazon Linux 2 AMI ID |
 | <a name="output_amazon_linux_2_ami_name"></a> [amazon\_linux\_2\_ami\_name](#output\_amazon\_linux\_2\_ami\_name) | Latest Amazon Linux 2 AMI name |

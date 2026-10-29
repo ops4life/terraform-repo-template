@@ -69,7 +69,7 @@ outputs
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 5.0 |
 
@@ -80,7 +80,7 @@ No providers.
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_application_bucket"></a> [application\_bucket](#module\_application\_bucket) | ../../modules/s3-bucket | n/a |
 | <a name="module_logs_bucket"></a> [logs\_bucket](#module\_logs\_bucket) | ../../modules/s3-bucket | n/a |
 
@@ -91,7 +91,7 @@ No resources.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_environment"></a> [environment](#input\_environment) | Environment name | `string` | `"dev"` | no |
 | <a name="input_prefix"></a> [prefix](#input\_prefix) | Resource name prefix | `string` | `"example"` | no |
 | <a name="input_region"></a> [region](#input\_region) | AWS region | `string` | `"ap-southeast-1"` | no |
@@ -99,7 +99,7 @@ No resources.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_all_buckets"></a> [all\_buckets](#output\_all\_buckets) | Map of all bucket IDs |
 | <a name="output_application_bucket"></a> [application\_bucket](#output\_application\_bucket) | Application bucket details |
 | <a name="output_logs_bucket"></a> [logs\_bucket](#output\_logs\_bucket) | Logs bucket details |
