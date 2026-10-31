@@ -1,0 +1,51 @@
+name: Otto PR check
+
+# Comment `@otto` on a PR to get a summary of its failed workflow runs.
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  actions: read
+  pull-requests: write
+
+env:
+  LOG_TAIL_LINES: 40
+
+jobs:
+  check:
+    name: Report failed runs
+    if: >-
+      github.event.issue.pull_request
+      && contains(github.event.comment.body, '@otto')
+      && contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.comment.author_association)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Summarize failed runs and comment
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.issue.number }}
+        run: |
+          set -euo pipefail
+          sha=$(gh pr view "$PR" -R "$REPO" --json headRefOid -q .headRefOid)
+          runs=$(gh run list -R "$REPO" --commit "$sha" --limit 50 \
+            --json databaseId,name,conclusion,url \
+            -q '.[] | select(.conclusion == "failure" or .conclusion == "timed_out") | "\(.databaseId)\t\(.name)\t\(.url)"')
+          {
+            echo "### Otto: workflow check for \`${sha:0:7}\`"
+            if [ -z "$runs" ]; then
+              echo "No failed workflow runs."
+            else
+              while IFS=$'\t' read -r id name url; do
+                echo "<details><summary>❌ <a href=\"$url\">$name</a></summary>"
+                echo
+                echo '```'
+                gh run view "$id" -R "$REPO" --log-failed 2>&1 | tail -n "$LOG_TAIL_LINES"
+                echo '```'
+                echo "</details>"
+              done <<< "$runs"
+            fi
+          } > body.md
+          gh pr comment "$PR" -R "$REPO" --body-file body.md
