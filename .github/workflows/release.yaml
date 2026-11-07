@@ -10,18 +10,25 @@ jobs:
     name: Release
     runs-on: ubuntu-24.04
     steps:
+      - uses: actions/create-github-app-token@v3.3.0
+        id: app-token
+        with:
+          client-id: ${{ secrets.GH_APP_CLIENT_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
       - name: Checkout
         uses: actions/checkout@v7
         with:
           persist-credentials: false
           fetch-depth: 0
+          token: ${{ steps.app-token.outputs.token }}
 
       - name: Release
         uses: cycjimmy/semantic-release-action@v8
         with:
-          semantic_version: 18.0.0
+          semantic_version: 24
           extra_plugins: |
             @semantic-release/changelog@6.0.0
             @semantic-release/git@10.0.0
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
