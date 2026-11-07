@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.19.1](https://github.com/ops4life/terraform-repo-template/compare/v1.19.0...v1.19.1) (2026-11-07)
+
+
+### Bug Fixes
+
+* **checkov:** skip CKV_AWS_394 on aws_availability_zones data source ([#95](https://github.com/ops4life/terraform-repo-template/issues/95)) ([7a45167](https://github.com/ops4life/terraform-repo-template/commit/7a45167fd2fd9853be21d336af0e657080f6e120))
+* **ci:** fall back to free gitleaks CLI when license secret is unavailable ([#94](https://github.com/ops4life/terraform-repo-template/issues/94)) ([6fffe46](https://github.com/ops4life/terraform-repo-template/commit/6fffe4655e80f1467a583c6b5ae79f30d86d088b))
+* **ci:** install checkov with pipx to avoid breaking pre-commit's virtualenv ([#96](https://github.com/ops4life/terraform-repo-template/issues/96)) ([3a78e99](https://github.com/ops4life/terraform-repo-template/commit/3a78e9961d1871e95e480577a860604e0761702d))
+
 # [1.19.0](https://github.com/ops4life/terraform-repo-template/compare/v1.18.0...v1.19.0) (2026-02-11)
 
 
