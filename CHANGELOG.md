@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.19.2](https://github.com/ops4life/terraform-repo-template/compare/v1.19.1...v1.19.2) (2026-11-09)
+
+
+### Bug Fixes
+
+* run pre-commit-ci on the PR head ([#106](https://github.com/ops4life/terraform-repo-template/issues/106)) ([a672c16](https://github.com/ops4life/terraform-repo-template/commit/a672c163e12228e7cb5b3b2af31df29f69a5d94c))
+
 ## [1.19.1](https://github.com/ops4life/terraform-repo-template/compare/v1.19.0...v1.19.1) (2026-11-07)
 
 
