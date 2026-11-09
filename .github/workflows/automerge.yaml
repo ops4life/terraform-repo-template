@@ -14,7 +14,18 @@ jobs:
       github.head_ref == 'update-pre-commit-hooks' ||
       github.actor == 'dependabot[bot]'
     steps:
-      - uses: peter-evans/enable-pull-request-automerge@v3
+      - name: Fetch Dependabot metadata
+        id: meta
+        if: github.actor == 'dependabot[bot]'
+        uses: dependabot/fetch-metadata@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Fail closed: Dependabot PRs auto-merge only when explicitly minor or patch.
+      # Majors (and anything fetch-metadata cannot classify) stay open for manual review.
+      - name: Enable auto-merge
+        if: github.actor != 'dependabot[bot]' || steps.meta.outputs.update-type == 'version-update:semver-minor' || steps.meta.outputs.update-type == 'version-update:semver-patch'
+        uses: peter-evans/enable-pull-request-automerge@v3
         with:
           pull-request-number: ${{ github.event.pull_request.number }}
           merge-method: squash

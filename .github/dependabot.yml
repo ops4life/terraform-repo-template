@@ -10,6 +10,12 @@ updates:
       include: scope
     labels:
       - "terraform"
+    # Minor/patch updates in one PR; majors stay separate for manual review.
+    groups:
+      terraform-minor-patch:
+        update-types:
+          - "minor"
+          - "patch"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
@@ -17,6 +23,12 @@ updates:
     commit-message:
       prefix: "chore"
       include: scope
+    # Minor/patch updates in one PR; majors stay separate for manual review.
+    groups:
+      github-actions-minor-patch:
+        update-types:
+          - "minor"
+          - "patch"
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
@@ -26,3 +38,9 @@ updates:
       include: scope
     labels:
       - "python"
+    # Minor/patch updates in one PR; majors stay separate for manual review.
+    groups:
+      pip-minor-patch:
+        update-types:
+          - "minor"
+          - "patch"
