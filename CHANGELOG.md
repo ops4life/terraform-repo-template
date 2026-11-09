@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.19.3](https://github.com/ops4life/terraform-repo-template/compare/v1.19.2...v1.19.3) (2026-11-09)
+
+
+### Bug Fixes
+
+* **ci:** pre-commit on Python 3.12 and regenerate the aws provider lock ([#109](https://github.com/ops4life/terraform-repo-template/issues/109)) ([63582c7](https://github.com/ops4life/terraform-repo-template/commit/63582c78102810cf7fc3db1e408c62cef3b6022f))
+
 ## [1.19.2](https://github.com/ops4life/terraform-repo-template/compare/v1.19.1...v1.19.2) (2026-11-09)
 
 
