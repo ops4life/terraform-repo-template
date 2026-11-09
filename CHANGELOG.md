@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.19.4](https://github.com/ops4life/terraform-repo-template/compare/v1.19.3...v1.19.4) (2026-11-09)
+
+
+### Bug Fixes
+
+* **ci:** full git fetch in pre-commit so mkdocs --strict passes ([#110](https://github.com/ops4life/terraform-repo-template/issues/110)) ([2a58650](https://github.com/ops4life/terraform-repo-template/commit/2a586501e52eb5fcf94f06479a64e6119057e968))
+
 ## [1.19.3](https://github.com/ops4life/terraform-repo-template/compare/v1.19.2...v1.19.3) (2026-11-09)
 
 
