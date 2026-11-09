@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+# [1.20.0](https://github.com/ops4life/terraform-repo-template/compare/v1.19.4...v1.20.0) (2026-11-09)
+
+
+### Features
+
+* **ci:** merge minor/patch Dependabot PRs as ops4life-otto after required checks pass ([#112](https://github.com/ops4life/terraform-repo-template/issues/112)) ([767edeb](https://github.com/ops4life/terraform-repo-template/commit/767edebfe0c901e7020841406bf9345d6ccb7389))
+
 ## [1.19.4](https://github.com/ops4life/terraform-repo-template/compare/v1.19.3...v1.19.4) (2026-11-09)
 
 
