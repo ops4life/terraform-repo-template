@@ -6,9 +6,15 @@ permissions:
   pull-requests: write
   contents: write
 
+# One run per PR: a newer push supersedes a run still waiting on checks.
+concurrency:
+  group: automerge-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 jobs:
   automerge:
     runs-on: ubuntu-24.04
+    timeout-minutes: 45
     if: |
       startsWith(github.head_ref, 'update-license-') ||
       github.head_ref == 'update-pre-commit-hooks' ||
@@ -17,15 +23,45 @@ jobs:
       - name: Fetch Dependabot metadata
         id: meta
         if: github.actor == 'dependabot[bot]'
-        uses: dependabot/fetch-metadata@v2
+        uses: dependabot/fetch-metadata@v3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      # Fail closed: Dependabot PRs auto-merge only when explicitly minor or patch.
+      # Fail closed: Dependabot PRs merge only when explicitly minor or patch.
       # Majors (and anything fetch-metadata cannot classify) stay open for manual review.
-      - name: Enable auto-merge
-        if: github.actor != 'dependabot[bot]' || steps.meta.outputs.update-type == 'version-update:semver-minor' || steps.meta.outputs.update-type == 'version-update:semver-patch'
-        uses: peter-evans/enable-pull-request-automerge@v3
+      - name: Decide
+        id: gate
+        env:
+          ACTOR: ${{ github.actor }}
+          UPDATE_TYPE: ${{ steps.meta.outputs.update-type }}
+        run: |
+          if [ "$ACTOR" != "dependabot[bot]" ] || [ "$UPDATE_TYPE" = "version-update:semver-minor" ] || [ "$UPDATE_TYPE" = "version-update:semver-patch" ]; then
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Skipping auto-merge: update-type='$UPDATE_TYPE'"
+          fi
+
+      # The ops4life-otto App is a bypass actor for the code-owner review rule, which a
+      # GITHUB_TOKEN auto-merge cannot satisfy. It also bypasses the required-checks ruleset,
+      # so the step below must itself wait for every required check before merging.
+      - name: Mint ops4life-otto token
+        id: app
+        if: steps.gate.outputs.ok == 'true'
+        uses: actions/create-github-app-token@v2
         with:
-          pull-request-number: ${{ github.event.pull_request.number }}
-          merge-method: squash
+          app-id: ${{ secrets.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
+      - name: Wait for required checks, then merge
+        if: steps.gate.outputs.ok == 'true'
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          GH_REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          sleep 90 # let the required checks register on the new head
+          # Non-zero if any required check fails or none are reported (fail closed).
+          gh pr checks "$PR" --required --watch --interval 30
+          # Refuses to merge if the head moved since this run started (e.g. a pre-commit autofix push).
+          gh pr merge "$PR" --squash --match-head-commit "$HEAD_SHA"
