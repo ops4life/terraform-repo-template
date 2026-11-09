@@ -12,6 +12,7 @@ repos:
         name: Fix end of files
       - id: check-yaml
         name: Check YAML syntax
+        args: ['--unsafe']
       - id: check-added-large-files
         name: Check for large files
         args: ['--maxkb=1000']

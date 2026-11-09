@@ -4,10 +4,13 @@ on:
 
 jobs:
   pre-commit:
+    # pull_request_target runs with a write token: never check out fork code.
+    if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
         with:
+          ref: ${{ github.event.pull_request.head.ref }}
           token: ${{ secrets.WORKFLOW_TOKEN }}
 
       - name: Set up Python
