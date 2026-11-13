@@ -47,7 +47,7 @@ jobs:
       - name: Mint ops4life-otto token
         id: app
         if: steps.gate.outputs.ok == 'true'
-        uses: actions/create-github-app-token@v2
+        uses: actions/create-github-app-token@v3
         with:
           app-id: ${{ secrets.GH_APP_ID }}
           private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
