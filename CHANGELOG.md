@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.20.1](https://github.com/ops4life/terraform-repo-template/compare/v1.20.0...v1.20.1) (2026-11-13)
+
+
+### Bug Fixes
+
+* **ci:** stop running pre-commit auto-update on pull_request ([#118](https://github.com/ops4life/terraform-repo-template/issues/118)) ([ca60e45](https://github.com/ops4life/terraform-repo-template/commit/ca60e45003ae6b6b2f5b02cf2beaea867d45c657))
+
 # [1.20.0](https://github.com/ops4life/terraform-repo-template/compare/v1.19.4...v1.20.0) (2026-11-09)
 
 
