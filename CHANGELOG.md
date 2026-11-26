@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.20.3](https://github.com/ops4life/terraform-repo-template/compare/v1.20.2...v1.20.3) (2026-11-26)
+
+
+### Bug Fixes
+
+* **ci:** stop Dependabot PRs failing on terraform-docs and tflint ([a555ddd](https://github.com/ops4life/terraform-repo-template/commit/a555ddd902e4e081f3c8c0df9d68a59000b8e122)), closes [#121](https://github.com/ops4life/terraform-repo-template/issues/121) [#122](https://github.com/ops4life/terraform-repo-template/issues/122) [ops4life/org-maintenance#55](https://github.com/ops4life/org-maintenance/issues/55)
+
 ## [1.20.2](https://github.com/ops4life/terraform-repo-template/compare/v1.20.1...v1.20.2) (2026-11-23)
 
 
