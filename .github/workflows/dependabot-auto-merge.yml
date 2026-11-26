@@ -1,0 +1,31 @@
+name: Dependabot auto-merge
+
+# Merges green Dependabot PRs that only bump a minor or patch version. The gates live in the shared
+# workflow (ops4life/.github); this file only says when to look: after this repo's CI finishes on a PR,
+# hourly as a fallback, and by hand. Tracked in ops4life/org-maintenance#55.
+on:
+  workflow_run:
+    workflows: ["Checkov", "Close Stale Pull Requests", "Deploy Documentation", "Generate terraform docs", "Gitleaks", "Infracost", "Lint PR", "Pre-commit CI", "Pre-commit Check with Auto-update", "Release", "Template Repo Sync", "Terraform CI/CD", "Update LICENSE"]
+    types: [completed]
+  schedule:
+    - cron: '23 * * * *'
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: Log what would merge, merge nothing
+        type: boolean
+        default: false
+
+concurrency:
+  group: dependabot-auto-merge
+  cancel-in-progress: false
+
+permissions: {}
+
+jobs:
+  merge:
+    if: github.event_name != 'workflow_run' || contains(fromJSON('["pull_request", "pull_request_target"]'), github.event.workflow_run.event)
+    uses: ops4life/.github/.github/workflows/dependabot-auto-merge.yml@main
+    with:
+      dry-run: ${{ inputs.dry-run == true }}
+    secrets: inherit
