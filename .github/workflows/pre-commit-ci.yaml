@@ -54,6 +54,8 @@ jobs:
         run: pip install pre-commit
 
       - name: Run pre-commit
+        env:
+          GITHUB_TOKEN: ${{ github.token }} # tflint --init downloads plugins; unauthenticated it hits the API rate limit
         run: |
           pre-commit install
           pre-commit run --all-files

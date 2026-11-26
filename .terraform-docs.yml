@@ -44,7 +44,7 @@ settings:
   hide-empty: false
   html: true
   indent: 2
-  lockfile: true
+  lockfile: false # provider versions from .terraform.lock.hcl change on every Dependabot bump, and the docs job cannot push to Dependabot branches
   read-comments: true
   required: true
   sensitive: true
