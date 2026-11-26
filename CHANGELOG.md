@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.20.4](https://github.com/ops4life/terraform-repo-template/compare/v1.20.3...v1.20.4) (2026-11-26)
+
+
+### Bug Fixes
+
+* **ci:** authenticate the gitleaks release lookup in pre-commit CI ([3791da6](https://github.com/ops4life/terraform-repo-template/commit/3791da682a422554822db7fe06ab0fbc5088aea9)), closes [#123](https://github.com/ops4life/terraform-repo-template/issues/123) [ops4life/org-maintenance#55](https://github.com/ops4life/org-maintenance/issues/55)
+
 ## [1.20.3](https://github.com/ops4life/terraform-repo-template/compare/v1.20.2...v1.20.3) (2026-11-26)
 
 
